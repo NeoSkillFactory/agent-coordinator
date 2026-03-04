@@ -1,0 +1,33 @@
+{
+  "workflow": {
+    "name": "my-workflow",
+    "maxRetries": 3,
+    "timeoutMs": 30000
+  },
+  "agents": [
+    {
+      "id": "analyst",
+      "role": "analyst",
+      "capabilities": ["code-analysis", "linting", "reporting"]
+    },
+    {
+      "id": "executor",
+      "role": "executor",
+      "capabilities": ["deployment", "testing", "automation"]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "description": "Analyze codebase and gather metrics",
+      "assignTo": "analyst",
+      "dependencies": []
+    },
+    {
+      "id": "task-2",
+      "description": "Execute deployment based on analysis",
+      "assignTo": "executor",
+      "dependencies": ["task-1"]
+    }
+  ]
+}

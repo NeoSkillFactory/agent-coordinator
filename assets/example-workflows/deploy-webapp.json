@@ -1,0 +1,55 @@
+{
+  "workflow": {
+    "name": "deploy-webapp",
+    "maxRetries": 3,
+    "timeoutMs": 60000
+  },
+  "agents": [
+    {
+      "id": "analyst",
+      "role": "analyst",
+      "capabilities": ["code-analysis", "linting"]
+    },
+    {
+      "id": "tester",
+      "role": "tester",
+      "capabilities": ["unit-tests", "integration-tests"]
+    },
+    {
+      "id": "security",
+      "role": "security",
+      "capabilities": ["vulnerability-scan", "dependency-audit"]
+    },
+    {
+      "id": "deployer",
+      "role": "deployer",
+      "capabilities": ["deployment", "rollback"]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "lint",
+      "description": "Lint and static analysis",
+      "assignTo": "analyst",
+      "dependencies": []
+    },
+    {
+      "id": "test",
+      "description": "Run test suite",
+      "assignTo": "tester",
+      "dependencies": ["lint"]
+    },
+    {
+      "id": "scan",
+      "description": "Security vulnerability scan",
+      "assignTo": "security",
+      "dependencies": ["lint"]
+    },
+    {
+      "id": "deploy",
+      "description": "Deploy to staging",
+      "assignTo": "deployer",
+      "dependencies": ["test", "scan"]
+    }
+  ]
+}

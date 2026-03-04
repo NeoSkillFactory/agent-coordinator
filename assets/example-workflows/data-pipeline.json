@@ -1,0 +1,66 @@
+{
+  "workflow": {
+    "name": "data-pipeline",
+    "maxRetries": 2,
+    "timeoutMs": 120000
+  },
+  "agents": [
+    {
+      "id": "splitter",
+      "role": "splitter",
+      "capabilities": ["data-splitting"]
+    },
+    {
+      "id": "worker-a",
+      "role": "processor",
+      "capabilities": ["data-processing"]
+    },
+    {
+      "id": "worker-b",
+      "role": "processor",
+      "capabilities": ["data-processing"]
+    },
+    {
+      "id": "worker-c",
+      "role": "processor",
+      "capabilities": ["data-processing"]
+    },
+    {
+      "id": "aggregator",
+      "role": "aggregator",
+      "capabilities": ["data-aggregation", "reporting"]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "split",
+      "description": "Partition dataset into 3 chunks",
+      "assignTo": "splitter",
+      "dependencies": []
+    },
+    {
+      "id": "process-a",
+      "description": "Process partition A",
+      "assignTo": "worker-a",
+      "dependencies": ["split"]
+    },
+    {
+      "id": "process-b",
+      "description": "Process partition B",
+      "assignTo": "worker-b",
+      "dependencies": ["split"]
+    },
+    {
+      "id": "process-c",
+      "description": "Process partition C",
+      "assignTo": "worker-c",
+      "dependencies": ["split"]
+    },
+    {
+      "id": "merge",
+      "description": "Aggregate and generate report",
+      "assignTo": "aggregator",
+      "dependencies": ["process-a", "process-b", "process-c"]
+    }
+  ]
+}
