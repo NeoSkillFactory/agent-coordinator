@@ -44,8 +44,6 @@
 
 Source code: [github.com/NeoSkillFactory/agent-coordinator](https://github.com/NeoSkillFactory/agent-coordinator)
 
-**Price suggestion:** $299 USD
-
 ## License
 
 MIT © NeoSkillFactory
